@@ -1,0 +1,56 @@
+Terminator = '\n';
+ReplyTimeout = 2000;
+
+NMRCustomFilename {
+    out "do nmr:_nmr_multi_custom_filename \"%s\"";
+	in "done nmr:_nmr_multi_custom_filename%*300c";
+}
+
+NMRInternalFilename {
+    out "do nmr:_nmr_multi";
+	in "done nmr:_nmr_multi%*300c";
+}
+
+changeMultiplexerTarget {
+    out "change multiplexer:target %d";
+	in "changed multiplexer:target%*300c";
+}
+
+switchCoil {
+    out "do cell:_switch_coil %d";
+    in "done cell:_switch_coil%*300c";
+}
+
+afpFlip {
+    out "do afp:_afp_flip";
+    in "done afp:_afp_flip";
+}
+
+# run a multinmr
+MultiNMR {
+    out "do nmr:_nmr_in_multi";
+    in "done nmr:_nmr_in_multi%*300c";
+}
+
+NMR {
+    out "do nmr:_nmr_do";
+    in "%*300c";
+}
+
+setAFPCycle {
+    out "change cell:_afp_cycle %d";
+    in "changed cell:_afp_cycle%*300c";
+}
+
+
+## generic entry points
+
+runCommand {
+    out "\$1 \$2";
+    in "\$3 \$2 %#s";
+}
+
+runCommandArg {
+    out "\$1 \$2 \$3";
+    in "\$4 \$2 %#s";
+}

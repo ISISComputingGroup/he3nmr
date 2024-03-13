@@ -1,0 +1,47 @@
+record(stringout, "$(P)NMR:FNAME:CUST:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto NMRCustomFilename $(PORT)")
+}
+
+record(bo, "$(P)NMR:FNAME:INT:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto NMRInternalFilename $(PORT)")
+}
+
+record(longout, "$(P)MULTIPLX:TARGET:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto changeMultiplexerTarget $(PORT)")
+}
+
+record(longout, "$(P)COIL:SWITCH:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto switchCoil $(PORT)")
+}
+
+record(longout, "$(P)CELL:AFP:CYCLE:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto setAFPCycle $(PORT)")
+}
+
+record(bo, "$(P)AFPFLIP:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto afpFlip $(PORT)")
+}
+
+record(bo, "$(P)MULTINMR:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto MultiNMR $(PORT)")
+}
+
+record(bo, "$(P)NMR:SP")
+{
+    field(DTYP, "stream")
+    field(OUT, "@he3nmr.proto NMR $(PORT)")
+}

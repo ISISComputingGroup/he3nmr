@@ -1,0 +1,43 @@
+global {PROTOCOL=he3nmr.proto,P=\$(P),PORT=\$(PORT)}
+
+global {ARG1=read,ARG3=reply}
+
+file "read_integer.template" {
+    pattern { Q, ARG2, SCAN, EGU }
+    { "MULTPLX:VAL", "multiplexer:value", "2 second", "" }
+    { "AFP:VAL",  "afp:value", "2 second", "" }
+    { "CELL:AFP:CYCLE", "cell:_afp_cycle", "2 second", "" }
+#    { "CELL:VAL", "cell:value", "2 second", "" }
+}
+
+file "read_double.template" {
+    pattern { Q, ARG2, SCAN, EGU }
+    { "NMR:AMP:VAL", "nmr_amplitude:value", "2 second", "" }
+    { "NMR_T1:VAL", "nmr_t1:value", "2 second", "" }
+    { "NMR_T2:VAL",  "nmr_t2:value", "2 second", "" }
+    { "NMR_FREQ:VAL", "nmr_frequency:value", "2 second", "" }
+    { "NMR_PHASE:VAL", "nmr_phase:value", "2 second", "" }
+}
+
+file "read_string.template" {
+    pattern { Q, ARG2, SCAN, EGU }
+    { "NMR:VAL", "nmr:value", "2 second", "" }
+}
+
+global {ARG1=do,ARG3=done,COMMAND=runCommand}
+
+file "read_xyarray.template" {
+    pattern { Q, ARG2, SCAN, EGU, NVAL }
+    { "NMR:RAW", "nmr:_get_raw_nmr", "10 second", "", 100000 }
+    { "NMR:PROC", "nmr:_get_processed_nmr", "10 second", "", 100000 }
+    { "NMR:SPECRAW", "nmr:_get_raw_spectrum", "10 second", "", 100000 }
+    { "NMR:SPECPROC", "nmr:_get_processed_spectrum", "10 second", "", 100000 }
+}
+
+global {ARG1=do,ARG3=10,ARG4=done,COMMAND=runCommandArg,TYPEX=STRING}
+
+file "read_xyarray.template" {
+    pattern { Q, ARG2, SCAN, EGU, NVAL }
+    { "NMR:AMP", "nmr:_get_amplitude", "10 second", "", 100 }
+    { "NMR:PHASE", "nmr:_get_phase", "10 second", "", 100 }
+}

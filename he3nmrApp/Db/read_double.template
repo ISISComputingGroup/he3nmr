@@ -1,0 +1,75 @@
+record(waveform, "$(P)$(Q):_READ") 
+{
+  field(FTVL, "CHAR")
+  field(NELM, "512")
+  field(SCAN, "$(SCAN)")
+  field(DTYP, "stream")
+  field(INP, "@$(PROTOCOL) runCommand($(ARG1),$(ARG2),$(ARG3)) $(PORT)")
+  field(FLNK, "$(P)$(Q):_PARSE")
+}
+
+record(stringin, "$(P)$(Q):_VALPATH")
+{
+    field(VAL, "$(VALPATH=/0)")
+}
+
+record(stringin, "$(P)$(Q):_TIMEPATH")
+{
+    field(VAL, "$(TIMEPATH=/1/t)")
+}
+
+record(aSub, "$(P)$(Q):_PARSE")
+{
+  field(SNAM, "parseJSON")
+
+  field(INPA, "$(P)$(Q):_READ")
+  field(FTA, "CHAR")
+  field(NOA, "512")
+  field(FTVA, "ULONG")
+
+  field(INPB, "$(P)$(Q):_VALPATH")
+  field(FTB, "STRING")
+  field(FTVB, "DOUBLE")
+  field(OUTB, "$(P)$(Q) PP")
+
+  field(INPC, "$(P)$(Q):_TIMEPATH")
+  field(FTC, "STRING")
+  field(FTVC, "DOUBLE")
+  field(OUTC, "$(P)$(Q):DTIME PP")
+
+} 
+
+record(ai, "$(P)$(Q)")
+{
+    field(PREC, "3")
+    field(EGU, "$(EGU)")
+}
+
+record(ai, "$(P)$(Q):DTIME")
+{
+    field(PREC, "3")
+	field(FLNK, "$(P)$(Q):_PARSETIME")
+}
+
+record(stringin, "$(P)$(Q):_TIMEFORMAT")
+{
+    field(VAL, "%Y-%m-%d %H:%M:%S.%%d")
+}
+
+record(aSub, "$(P)$(Q):_PARSETIME")
+{
+  field(SNAM, "convertUNIXTime")
+
+  field(INPA, "$(P)$(Q):DTIME")
+  field(FTA, "DOUBLE")
+
+  field(INPB, "$(P)$(Q):_TIMEFORMAT")
+  field(FTB, "STRING")
+
+  field(FTVA, "STRING")
+  field(OUTA, "$(P)$(Q):TIME PP")
+} 
+
+record(stringin, "$(P)$(Q):TIME")
+{
+}

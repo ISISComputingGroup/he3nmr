@@ -1,0 +1,93 @@
+record(waveform, "$(P)$(Q):_READ") 
+{
+  field(FTVL, "CHAR")
+  field(NELM, "10000000")
+  field(SCAN, "$(SCAN)")
+  field(DTYP, "stream")
+  field(INP, "@$(PROTOCOL) $(COMMAND)($(ARG1),$(ARG2),$(ARG3),$(ARG4=)) $(PORT)")
+  field(FLNK, "$(P)$(Q):_PARSE")
+}
+
+record(stringin, "$(P)$(Q):_VALPATHX")
+{
+    field(VAL, "$(VALPATHX=/0/0)")
+}
+
+record(stringin, "$(P)$(Q):_VALPATHY")
+{
+    field(VAL, "$(VALPATHY=/0/1)")
+}
+
+record(stringin, "$(P)$(Q):_TIMEPATH")
+{
+    field(VAL, "$(TIMEPATH=/1/t)")
+}
+
+record(aSub, "$(P)$(Q):_PARSE")
+{
+  field(SNAM, "parseJSON")
+
+  field(INPA, "$(P)$(Q):_READ")
+  field(FTA, "CHAR")
+  field(NOA, "10000000")
+  field(FTVA, "ULONG")
+
+  field(INPB, "$(P)$(Q):_VALPATHX")
+  field(FTB, "STRING")
+  field(FTVB, "$(TYPEX=DOUBLE)")
+  field(NOVB, "$(NVAL=10000)")
+  field(OUTB, "$(P)$(Q):X PP")
+
+  field(INPC, "$(P)$(Q):_VALPATHY")
+  field(FTC, "STRING")
+  field(FTVC, "$(TYPEY=DOUBLE)")
+  field(NOVC, "$(NVAL=10000)")
+  field(OUTC, "$(P)$(Q):Y PP")
+
+  field(INPD, "$(P)$(Q):_TIMEPATH")
+  field(FTD, "STRING")
+  field(FTVD, "DOUBLE")
+  field(OUTD, "$(P)$(Q):DTIME PP")
+
+} 
+
+record(waveform, "$(P)$(Q):X")
+{
+  field(FTVL, "$(TYPEX=DOUBLE)")
+  field(NELM, "$(NVAL=10000)")
+}
+
+record(waveform, "$(P)$(Q):Y")
+{
+  field(FTVL, "$(TYPEY=DOUBLE)")
+  field(NELM, "$(NVAL=10000)")
+}
+
+record(ai, "$(P)$(Q):DTIME")
+{
+    field(PREC, "3")
+	field(FLNK, "$(P)$(Q):_PARSETIME")
+}
+
+record(stringin, "$(P)$(Q):_TIMEFORMAT")
+{
+    field(VAL, "%Y-%d-%m %H:%M:%S.%%d")
+}
+
+record(aSub, "$(P)$(Q):_PARSETIME")
+{
+  field(SNAM, "convertUNIXTime")
+
+  field(INPA, "$(P)$(Q):DTIME")
+  field(FTA, "DOUBLE")
+
+  field(INPB, "$(P)$(Q):_TIMEFORMAT")
+  field(FTB, "STRING")
+
+  field(FTVA, "STRING")
+  field(OUTA, "$(P)$(Q):TIME PP")
+} 
+
+record(stringin, "$(P)$(Q):TIME")
+{
+}

@@ -63,6 +63,11 @@ record(waveform, "$(P)$(Q):Y")
   field(NELM, "$(NVAL=10000)")
 }
 
+record(fanout, "$(P)$(Q):UPDATE")
+{
+    field(LNK1, "$(P)$(Q):_READ.PROC")
+}
+
 record(ai, "$(P)$(Q):DTIME")
 {
     field(PREC, "3")

@@ -42,6 +42,10 @@ setAFPCycle {
     in "changed cell:_afp_cycle%*300c";
 }
 
+getCellValue {
+    out "read cell:value";
+ 	in "reply cell:value [%d,%*100c";
+}
 
 ## generic entry points
 
@@ -53,4 +57,9 @@ runCommand {
 runCommandArg {
     out "\$1 \$2 \$3";
     in "\$4 \$2 %#s";
+}
+
+runCommandStr {
+    out "%s";
+    in "%#s";
 }

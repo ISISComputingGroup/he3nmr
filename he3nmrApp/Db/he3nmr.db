@@ -1,7 +1,32 @@
-record(stringout, "$(P)NMR:FNAME:CUST:SP")
+record(stringout, "$(P)CMD:SP")
 {
     field(DTYP, "stream")
-    field(OUT, "@he3nmr.proto NMRCustomFilename $(PORT)")
+    field(OUT, "@he3nmr.proto runCommandStr $(PORT)")
+}
+
+record(waveform, "$(P)CMDWF:SP")
+{
+    field(DTYP, "stream")
+    field(INP, "@he3nmr.proto runCommandStr $(PORT)")
+    field(FTVL, "CHAR")
+    field(NELM, "256")	
+}
+
+record(longin, "$(P)CELL:VAL") 
+{
+    field(DTYP, "stream")
+    field(INP, "@he3nmr.proto getCellValue $(PORT)")
+	field(SCAN, "Event")
+	field(EVNT, "Update")
+	info(archive, "VAL")
+}
+
+record(waveform, "$(P)NMR:FNAME:CUST:SP")
+{
+    field(DTYP, "stream")
+    field(INP, "@he3nmr.proto NMRCustomFilename $(PORT)")
+    field(FTVL, "CHAR")
+    field(NELM, "256")	
 }
 
 record(bo, "$(P)NMR:FNAME:INT:SP")
@@ -44,4 +69,14 @@ record(bo, "$(P)NMR:SP")
 {
     field(DTYP, "stream")
     field(OUT, "@he3nmr.proto NMR $(PORT)")
+}
+
+record(stringin, "$(P)UPDATE:NAME")
+{
+    field(VAL, "Update")
+}
+record(event, "$(P)UPDATE")
+{
+    field(DTYP, "Soft Channel")
+    field(INP, "$(P)UPDATE:NAME")
 }

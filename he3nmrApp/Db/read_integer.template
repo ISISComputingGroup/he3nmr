@@ -3,6 +3,7 @@ record(waveform, "$(P)$(Q):_READ")
   field(FTVL, "CHAR")
   field(NELM, "512")
   field(SCAN, "$(SCAN)")
+  field(EVNT, "Update")
   field(DTYP, "stream")
   field(INP, "@$(PROTOCOL) runCommand($(ARG1),$(ARG2),$(ARG3)) $(PORT)")
   field(FLNK, "$(P)$(Q):_PARSE")
@@ -42,6 +43,7 @@ record(aSub, "$(P)$(Q):_PARSE")
 record(longin, "$(P)$(Q)")
 {
     field(EGU, "$(EGU)")
+	info(archive, "VAL")
 }
 
 record(ai, "$(P)$(Q):DTIME")

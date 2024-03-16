@@ -23,7 +23,7 @@ switchCoil {
 
 afpFlip {
     out "do afp:_afp_flip";
-    in "done afp:_afp_flip";
+    in "done afp:_afp_flip%*300c";
 }
 
 # run a multinmr
